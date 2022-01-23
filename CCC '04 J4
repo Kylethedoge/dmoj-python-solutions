@@ -1,0 +1,45 @@
+import math
+alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+# numbers = [0,   1,   2,   3,   4,   5,   6,   7,   8,   9,   10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22,  23,  24,  25]
+encrypter = list(input())
+encrypter_list = []
+number = 0
+for i in range(len(encrypter)):
+    b = encrypter[number]
+    a = alphabet.index(b)
+    encrypter_list.append(int(a))
+    number += 1
+message = list(input())
+stripped_message = []
+number = 0
+coded = []
+for i in range(len(message)):
+    if alphabet.count(message[number]) == 1:
+        stripped_message.append(int(alphabet.index(message[number])))
+    number += 1
+number = 0
+for i in range(math.floor(len(stripped_message) / len(encrypter_list))):
+    number_2 = 0
+    for i in range(len(encrypter_list)):
+        coded.append(int(stripped_message[number])+int(encrypter_list[number_2]))
+        number += 1
+        number_2 += 1
+number_2 = 0
+for i in range((len(stripped_message) % len(encrypter_list))):
+    coded.append(int(stripped_message[number])+int(encrypter_list[number_2]))
+    number += 1
+    number_2 += 1
+encoded_message = []
+number = 0
+for i in range(len(coded)):
+    if coded[number] >= 26:
+        d = coded[number] - 26
+        coded.pop(number)
+        coded.insert(number, d)
+    number += 1
+number = 0
+for i in range(len(coded)):
+    encoded_message.append(alphabet[coded[number]])
+    number += 1
+x = "".join(encoded_message)
+print(x)
